@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2024/07/04/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Uniapp Base64转图片</title>
+    <url>/2024/07/04/uniapp-base64ToPath/</url>
+    <content><![CDATA[<div class="note red icon-padding flat"><i class="note-icon fa fa-circle-exclamation"></i><p>此方法仅用于uniapp手机端</p>
+</div>
+
+<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p><a href="https://www.html5plus.org/doc/zh_cn/nativeobj.html#plus.nativeObj.Bitmap">创建 Bitmap 对象</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bitmap = <span class="keyword">new</span> plus.<span class="property">nativeObj</span>.<span class="title class_">Bitmap</span>(id, path);</span><br></pre></td></tr></table></figure>
+
+<p><code>说明：</code> 创建后为空Bitmap对象，需要调用Webview对象的draw方法更新，或者调用load&#x2F;loadBase64Data方法加载图片。</p>
+<h2 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h2><p><a href="https://www.html5plus.org/doc/zh_cn/nativeobj.html#plus.nativeObj.Bitmap.loadBase64Data">loadBase64Data加载Base64编码格式图片到Bitmap对象</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> bitmap.<span class="title function_">loadBase64Data</span>(data, successCallback, errorCallback);</span><br></pre></td></tr></table></figure>
+
+<p><code>说明：</code> 从Base64编码格式图片数据中加载图片，此操作将覆盖之前的图片内容， 如果加载图片失败则保留之前的图片内容。<br><code>返回值：</code> Bitmap图片对象</p>
+<h2 id="保存"><a href="#保存" class="headerlink" title="保存"></a>保存</h2><p><a href="https://www.html5plus.org/doc/zh_cn/nativeobj.html#plus.nativeObj.Bitmap.save">save保存图片</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> bitmap.<span class="title function_">save</span>(path, options, successCallback, errorCallback);</span><br></pre></td></tr></table></figure>
+
+<p><code>说明：</code> 将图片保存到指定的路径（仅支持本地文件系统），如果图片为空或者指定的路径文件已经存在则返回失败。</p>
+<h2 id="CODE"><a href="#CODE" class="headerlink" title="CODE"></a>CODE</h2><p>方法如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">baseToPath</span>(<span class="params">base64</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> bitmap = <span class="keyword">new</span> plus.<span class="property">nativeObj</span>.<span class="title class_">Bitmap</span>(<span class="string">&#x27;name&#x27;</span>);</span><br><span class="line">    bitmap.<span class="title function_">loadBase64Data</span>(</span><br><span class="line">      base64,</span><br><span class="line">      <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> url = <span class="string">&#x27;_doc/&#x27;</span> + <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>() + <span class="string">&#x27;.png&#x27;</span>; <span class="comment">// url为时间戳命名方式</span></span><br><span class="line">        bitmap.<span class="title function_">save</span>(</span><br><span class="line">          url, &#123;</span><br><span class="line">            <span class="attr">overwrite</span>: <span class="literal">true</span> <span class="comment">// 是否覆盖</span></span><br><span class="line">            <span class="comment">// quality: &#x27;quality&#x27;  // 图片清晰度</span></span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="function">(<span class="params">success</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(url);</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">reject</span>(error)</span><br><span class="line">            bitmap.<span class="title function_">clear</span>();</span><br><span class="line">          &#125;</span><br><span class="line">        );</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">reject</span>(error)</span><br><span class="line">        bitmap.<span class="title function_">clear</span>();</span><br><span class="line">      &#125;</span><br><span class="line">    );</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>uniapp</tag>
+      </tags>
+  </entry>
+</search>
