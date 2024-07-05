@@ -19,6 +19,21 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Uniapp自用插件</title>
+    <url>/2024/07/05/personal-use/</url>
+    <content><![CDATA[<h2 id="Wot-Design-Uni"><a href="#Wot-Design-Uni" class="headerlink" title="Wot-Design-Uni"></a>Wot-Design-Uni</h2><p><a href="https://wot-design-uni.pages.dev/">官网</a><br>高颜值、轻量化的uni-app组件库<br>基于Vue3+TS开发，提供70+高质量组件，支持暗黑模式、国际化和自定义主题。</p>
+<h2 id="Weapp-Tailwindcss"><a href="#Weapp-Tailwindcss" class="headerlink" title="Weapp-Tailwindcss"></a>Weapp-Tailwindcss</h2><p><a href="https://sonofmagic.github.io/weapp-tailwindcss/">官网</a><br>降低开发维护成本，提升开发效率的<br>小程序 使用 tailwindcss 全方面解决方案</p>
+<h2 id="Alova"><a href="#Alova" class="headerlink" title="Alova"></a>Alova</h2><p><a href="https://alova.js.org/zh-CN/">官网</a><br>一行代码完成各种复杂场景的网络请求，别再花时间在请求这件小事上了，交给我们</p>
+<h2 id="async-validate"><a href="#async-validate" class="headerlink" title="async-validate"></a>async-validate</h2><p><a href="https://github.com/tmpfs/async-validate">官网</a><br>节点和浏览器的异步验证。它具有最小的依赖关系并使用插件架构，因此您只需要包含要验证的类型的插件，即可轻松创建自己的验证插件。</p>
+<h2 id="echart"><a href="#echart" class="headerlink" title="echart"></a>echart</h2><p><a href="https://limeui.qcoon.cn/#/echart">官网</a><br>适用于Uniapp的百度echart</p>
+]]></content>
+      <tags>
+        <tag>uniapp</tag>
+        <tag>H5</tag>
+        <tag>微信小程序</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Uniapp Base64转图片</title>
     <url>/2024/07/04/uniapp-base64ToPath/</url>
     <content><![CDATA[<div class="note red icon-padding flat"><i class="note-icon fa fa-circle-exclamation"></i><p>此方法仅用于uniapp手机端</p>
