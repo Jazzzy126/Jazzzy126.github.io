@@ -23,9 +23,10 @@
     <url>/2024/07/05/personal-use/</url>
     <content><![CDATA[<h2 id="Wot-Design-Uni"><a href="#Wot-Design-Uni" class="headerlink" title="Wot-Design-Uni"></a>Wot-Design-Uni</h2><p><a href="https://wot-design-uni.pages.dev/">官网</a><br>高颜值、轻量化的uni-app组件库<br>基于Vue3+TS开发，提供70+高质量组件，支持暗黑模式、国际化和自定义主题。</p>
 <h2 id="Weapp-Tailwindcss"><a href="#Weapp-Tailwindcss" class="headerlink" title="Weapp-Tailwindcss"></a>Weapp-Tailwindcss</h2><p><a href="https://sonofmagic.github.io/weapp-tailwindcss/">官网</a><br>降低开发维护成本，提升开发效率的<br>小程序 使用 tailwindcss 全方面解决方案</p>
-<h2 id="Alova"><a href="#Alova" class="headerlink" title="Alova"></a>Alova</h2><p><a href="https://alova.js.org/zh-CN/">官网</a><br>一行代码完成各种复杂场景的网络请求，别再花时间在请求这件小事上了，交给我们</p>
-<h2 id="async-validate"><a href="#async-validate" class="headerlink" title="async-validate"></a>async-validate</h2><p><a href="https://github.com/tmpfs/async-validate">官网</a><br>节点和浏览器的异步验证。它具有最小的依赖关系并使用插件架构，因此您只需要包含要验证的类型的插件，即可轻松创建自己的验证插件。</p>
-<h2 id="echart"><a href="#echart" class="headerlink" title="echart"></a>echart</h2><p><a href="https://limeui.qcoon.cn/#/echart">官网</a><br>适用于Uniapp的百度echart</p>
+<h2 id="Alova"><a href="#Alova" class="headerlink" title="Alova"></a>Alova</h2><p><a href="https://alova.js.org/zh-CN/">官网</a><br>一行代码完成各种复杂场景的网络请求，别再花时间在请求这件小事上了，交给我们<br>小程序 使用 tailwindcss 全方面解决方案</p>
+<h2 id="Uni-Mini-Router"><a href="#Uni-Mini-Router" class="headerlink" title="Uni Mini Router"></a>Uni Mini Router</h2><p><a href="https://moonofweisheng.github.io/uni-mini-router/">官网</a><br>一个基于vue3和Typescript的轻量级uni-app路由库</p>
+<h2 id="Async-Validate"><a href="#Async-Validate" class="headerlink" title="Async-Validate"></a>Async-Validate</h2><p><a href="https://github.com/tmpfs/async-validate">官网</a><br>节点和浏览器的异步验证。它具有最小的依赖关系并使用插件架构，因此您只需要包含要验证的类型的插件，即可轻松创建自己的验证插件。</p>
+<h2 id="Echart"><a href="#Echart" class="headerlink" title="Echart"></a>Echart</h2><p><a href="https://limeui.qcoon.cn/#/echart">官网</a><br>适用于Uniapp的百度echart</p>
 ]]></content>
       <tags>
         <tag>uniapp</tag>
@@ -34,8 +35,37 @@
       </tags>
   </entry>
   <entry>
+    <title>Uniapp App 向 Webview 通信</title>
+    <url>/2024/08/01/uniapp/appToWebview/</url>
+    <content><![CDATA[<div class="note red icon-padding flat"><i class="note-icon fa fa-circle-exclamation"></i><p>此方法仅用于 uniapp 手机端</p>
+</div>
+
+<h2 id="APP端"><a href="#APP端" class="headerlink" title="APP端"></a>APP端</h2><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p><a href="https://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.create">创建新的 Webview 窗口</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">WebviewObject</span> plus.<span class="property">webview</span>.<span class="title function_">create</span>(url, id, styles, extras);</span><br></pre></td></tr></table></figure>
+
+<p><code>说明：</code> 创建 Webview 窗口，用于加载新的 HTML 页面，可通过 styles 设置 Webview 窗口的样式，创建完成后需要调用 show 方法才能将 Webview 窗口显示出来。</p>
+<h3 id="获取"><a href="#获取" class="headerlink" title="获取"></a>获取</h3><p>获取到当前的 Webview</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> currentWebview = <span class="variable language_">this</span>.<span class="property">$mp</span>.<span class="property">page</span>.$getAppWebview();</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h3><p><a href="https://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewObject.append">在 Webview 窗口中添加子窗口</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> wobj.<span class="title function_">append</span>(webview);</span><br></pre></td></tr></table></figure>
+
+<p><code>说明：</code> 将另一个 Webview 窗口作为子窗口添加到当前 Webview 窗口中，添加后其所有权归父 Webview 窗口，当父窗口关闭时子窗口自动关闭。</p>
+<h3 id="CODE"><a href="#CODE" class="headerlink" title="CODE"></a>CODE</h3><p>代码如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> wv = plus.<span class="property">webview</span>.<span class="title function_">create</span>(</span><br><span class="line">    url, <span class="comment">// url</span></span><br><span class="line">    <span class="string">&#x27;webviewId&#x27;</span>, <span class="comment">// webviewId 有唯一性 </span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">top</span>: <span class="string">`10vh`</span>,</span><br><span class="line">      <span class="attr">height</span>: <span class="string">`90vh`</span></span><br><span class="line">    &#125;, <span class="comment">// 样式 具体看文档</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">token</span>: <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">    &#125; <span class="comment">// 携带的   );</span></span><br><span class="line">    <span class="keyword">let</span> currentWebview = <span class="variable language_">this</span>.<span class="property">$mp</span>.<span class="property">page</span>.$getAppWebview(); currentWebview.<span class="title function_">append</span>(wv);</span><br></pre></td></tr></table></figure>
+
+<h2 id="H5端"><a href="#H5端" class="headerlink" title="H5端"></a>H5端</h2><h3 id="CODE-1"><a href="#CODE-1" class="headerlink" title="CODE"></a>CODE</h3><p>代码如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(</span><br><span class="line">  <span class="string">&quot;plusready&quot;</span>,</span><br><span class="line">  <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> value = plus.<span class="property">webview</span>.<span class="title function_">getWebviewById</span>(<span class="string">&quot;webviewId&quot;</span>)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(value);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">false</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p><code>说明：</code> 监听 plusready 事件，获取到webview传过来的值</p>
+]]></content>
+      <tags>
+        <tag>uniapp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Uniapp Base64转图片</title>
-    <url>/2024/07/04/uniapp-base64ToPath/</url>
+    <url>/2024/07/04/uniapp/base64ToPath/</url>
     <content><![CDATA[<div class="note red icon-padding flat"><i class="note-icon fa fa-circle-exclamation"></i><p>此方法仅用于uniapp手机端</p>
 </div>
 
